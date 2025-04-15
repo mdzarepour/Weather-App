@@ -15,6 +15,7 @@ class WeatherService {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         Future.error(Strings.permissionError);
+        // return 'Tehran';
       }
     }
     //get user position
