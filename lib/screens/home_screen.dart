@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' as developer;
 import 'package:hugeicons/hugeicons.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:developer' as developer;
+
 import 'package:weather_app/components/constants/colors.dart';
 import 'package:weather_app/components/constants/strings.dart';
 import 'package:weather_app/components/widgets/detail_column_widget.dart';
@@ -45,8 +46,9 @@ class HomeScreenState extends State<HomeScreen> {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
-      decoration:
-          const BoxDecoration(gradient: GradientColor.homeScreenGradient),
+      decoration: const BoxDecoration(
+        gradient: GradientColor.homeScreenGradient,
+      ),
       child: Builder(
         builder: (context) {
           return GestureDetector(
@@ -55,25 +57,28 @@ class HomeScreenState extends State<HomeScreen> {
               backgroundColor: Colors.transparent,
               appBar: _buildAppBar(),
               drawer: _buildDrawerMenu(),
-              body: _isLoading
-                  ? const Loading()
-                  : SingleChildScrollView(
-                      child: SafeArea(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 40, vertical: 30),
-                          child: Column(
-                            children: [
-                              _buildHeaderSection(textTheme),
-                              const SizedBox(height: 20),
-                              _buildMainSection(textTheme, size),
-                              const SizedBox(height: 30),
-                              _buildFooterSection(size, textTheme),
-                            ],
+              body:
+                  _isLoading
+                      ? const Loading()
+                      : SingleChildScrollView(
+                        child: SafeArea(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 40,
+                              vertical: 30,
+                            ),
+                            child: Column(
+                              children: [
+                                _buildHeaderSection(textTheme),
+                                const SizedBox(height: 20),
+                                _buildMainSection(textTheme, size),
+                                const SizedBox(height: 30),
+                                _buildFooterSection(size, textTheme),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
             ),
           );
         },
@@ -81,7 +86,7 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-// drawe menu with listtiles =>
+  // drawe menu with listtiles =>
   Drawer _buildDrawerMenu() {
     return Drawer(
       backgroundColor: SolidColors.draweMenuColor,
@@ -96,9 +101,7 @@ class HomeScreenState extends State<HomeScreen> {
             ),
           ),
           const SizedBox(height: 35),
-          const ListTile(
-            title: Text(Strings.weather),
-          ),
+          const ListTile(title: Text(Strings.weather)),
           ListTile(
             onTap: () => _launchUrl(Strings.gitHubLink),
             title: const Text(Strings.opt1),
@@ -120,13 +123,11 @@ class HomeScreenState extends State<HomeScreen> {
         child: InkWell(
           borderRadius: const BorderRadius.all(Radius.circular(15)),
           onTap: () {
-            setState(
-              () {
-                _searchVisibility == false
-                    ? _searchVisibility = true
-                    : _searchVisibility = false;
-              },
-            );
+            setState(() {
+              _searchVisibility == false
+                  ? _searchVisibility = true
+                  : _searchVisibility = false;
+            });
           },
           child: const Icon(HugeIcons.strokeRoundedSearch01),
         ),
@@ -136,10 +137,11 @@ class HomeScreenState extends State<HomeScreen> {
         Padding(
           padding: const EdgeInsets.only(right: 15),
           child: Builder(
-            builder: (context) => InkWell(
-              onTap: () => Scaffold.of(context).openDrawer(),
-              child: const Icon(HugeIcons.strokeRoundedMenu02),
-            ),
+            builder:
+                (context) => InkWell(
+                  onTap: () => Scaffold.of(context).openDrawer(),
+                  child: const Icon(HugeIcons.strokeRoundedMenu02),
+                ),
           ),
         ),
       ],
@@ -168,11 +170,10 @@ class HomeScreenState extends State<HomeScreen> {
               if (_searchController.text == '') {
                 _fetchWeatherData();
               }
-              Weather freshWeather =
-                  await WeatherService().getWeatherData(_searchController.text);
-              setState(
-                () => _weather = freshWeather,
+              Weather freshWeather = await WeatherService().getWeatherData(
+                _searchController.text,
               );
+              setState(() => _weather = freshWeather);
             },
           ),
         ),
@@ -180,7 +181,7 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-// header section , contain city and date =>
+  // header section , contain city and date =>
   Column _buildHeaderSection(TextTheme textTheme) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -193,7 +194,7 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-// main section , contain animation & temp =>
+  // main section , contain animation & temp =>
   Row _buildMainSection(TextTheme textTheme, Size size) {
     return Row(
       spacing: 30,
@@ -216,7 +217,7 @@ class HomeScreenState extends State<HomeScreen> {
                 Text(
                   _weather!.main,
                   style: textTheme.bodyMedium!.copyWith(fontSize: 23),
-                )
+                ),
               ],
             ),
             Column(
@@ -235,37 +236,46 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-// footer section , contains three rows =>
+  // footer section , contains three rows =>
   Column _buildFooterSection(Size size, TextTheme textTheme) {
     return Column(
       spacing: 20,
       children: [
         //condition data =>
         InformationColumnWidget(
-            shadowColor: SolidColors.yellowShadowColor,
-            icon: const Icon(CupertinoIcons.doc,
-                color: SolidColors.yellowIconColor),
-            title: 'condition :',
-            value: _weather!.main),
+          shadowColor: SolidColors.yellowShadowColor,
+          icon: const Icon(
+            CupertinoIcons.doc,
+            color: SolidColors.yellowIconColor,
+          ),
+          title: 'condition :',
+          value: _weather!.main,
+        ),
         //humidity data =>
         InformationColumnWidget(
-            shadowColor: SolidColors.blueShadowColor,
-            icon: const Icon(CupertinoIcons.drop,
-                color: SolidColors.blueIconColor),
-            title: 'humidity :',
-            value: _weather!.humidity.toString()),
+          shadowColor: SolidColors.blueShadowColor,
+          icon: const Icon(
+            CupertinoIcons.drop,
+            color: SolidColors.blueIconColor,
+          ),
+          title: 'humidity :',
+          value: _weather!.humidity.toString(),
+        ),
         //wind speed data =>
         InformationColumnWidget(
-            shadowColor: SolidColors.greenShadowColor,
-            icon: const Icon(CupertinoIcons.wind,
-                color: SolidColors.greenIconColor),
-            title: 'wind speed :',
-            value: _weather!.windSpeed.toString()),
+          shadowColor: SolidColors.greenShadowColor,
+          icon: const Icon(
+            CupertinoIcons.wind,
+            color: SolidColors.greenIconColor,
+          ),
+          title: 'wind speed :',
+          value: _weather!.windSpeed.toString(),
+        ),
       ],
     );
   }
 
-// get animation for main section ui =>
+  // get animation for main section ui =>
   String _getWeatherAnimation() {
     String mainCondition = _weather!.main;
     String baseAddress = 'assets/images/';
@@ -293,14 +303,14 @@ class HomeScreenState extends State<HomeScreen> {
     }
   }
 
-// get date for header section ui =>
+  // get date for header section ui =>
   String _getDate() {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('EEE, MMM d').format(now);
     return formattedDate;
   }
 
-// fetch data from service =>
+  // fetch data from service =>
   void _fetchWeatherData() async {
     try {
       Weather weather = await WeatherService().getWeatherData(_cityName!);
@@ -313,7 +323,7 @@ class HomeScreenState extends State<HomeScreen> {
     }
   }
 
-// url luncher for drawer menu
+  // url luncher for drawer menu
   void _launchUrl(String url) async {
     Uri uri = Uri.parse(url);
     try {
@@ -322,9 +332,7 @@ class HomeScreenState extends State<HomeScreen> {
       } else {
         developer.log('');
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('we cant open the link right now'),
-          ),
+          const SnackBar(content: Text('we cant open the link right now')),
         );
       }
     } catch (e) {

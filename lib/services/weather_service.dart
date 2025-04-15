@@ -19,22 +19,28 @@ class WeatherService {
     }
     //get user position
     LocationSettings locationSettings = const LocationSettings(
-        accuracy: LocationAccuracy.high, distanceFilter: 100);
-    Position position =
-        await Geolocator.getCurrentPosition(locationSettings: locationSettings);
+      accuracy: LocationAccuracy.high,
+      distanceFilter: 100,
+    );
+    Position position = await Geolocator.getCurrentPosition(
+      locationSettings: locationSettings,
+    );
     //convert position
     double latitude = position.latitude;
     double longitude = position.longitude;
-    List<Placemark> placemark =
-        await placemarkFromCoordinates(latitude, longitude);
+    List<Placemark> placemark = await placemarkFromCoordinates(
+      latitude,
+      longitude,
+    );
     String? city = placemark[0].locality;
     return city ?? 'unknown';
   }
 
   Future<Weather> getWeatherData(String city) async {
     late Weather weather;
-    Response response = await Dio()
-        .get('$baseUrl/2.5/weather?q=$city&appid=$apiKey&units=metric');
+    Response response = await Dio().get(
+      '$baseUrl/2.5/weather?q=$city&appid=$apiKey&units=metric',
+    );
     if (response.statusCode == 200) {
       weather = Weather.fromJson(response.data);
     }

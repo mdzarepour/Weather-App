@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/components/constants/colors.dart';
+import 'package:weather_app/screens/splash_screen.dart';
 
 main() {
   runApp(const WeatherApp());
