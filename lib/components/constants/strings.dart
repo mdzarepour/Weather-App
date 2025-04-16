@@ -6,6 +6,13 @@ class Strings {
   static const String weather = 'weather';
   static const String animationAssetSplash =
       'assets/images/splash_animation.json';
-  static const String opt1 = 'see on github';
-  static const String opt2 = 'used api link';
+}
+
+class DrawerStrings {
+  static const gitHubLink = 'https://github.com/mdzarepour/Weather-App';
+  static const gitHubTitle = 'See On GitHub';
+  static const websiteLink = 'https://openweathermap.org/';
+  static const websiteTitle = 'See Api Website';
+  static const flutterLink = 'https://flutter.dev/';
+  static const flutterTitle = 'See Flutter';
 }

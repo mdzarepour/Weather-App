@@ -17,6 +17,7 @@ class WeatherApp extends StatelessWidget {
         inputDecorationTheme: textFieldDecoration(),
         appBarTheme: _appBarTheme(),
         textTheme: textThemes(),
+        scaffoldBackgroundColor: Colors.transparent,
       ),
       home: const SplashScreen(),
     );
@@ -36,6 +37,7 @@ class WeatherApp extends StatelessWidget {
   // seach textField theme =>
   InputDecorationTheme textFieldDecoration() {
     return const InputDecorationTheme(
+      hintStyle: TextStyle(color: Colors.grey),
       contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       filled: true,
       focusedBorder: OutlineInputBorder(

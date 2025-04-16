@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:weather_app/components/constants/colors.dart';
 import 'package:weather_app/components/widgets/loading.dart';
 import 'package:weather_app/screens/home_screen.dart';
