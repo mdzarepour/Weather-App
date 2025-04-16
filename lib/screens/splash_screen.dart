@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:lottie/lottie.dart';
 import 'package:weather_app/components/constants/colors.dart';
-import 'package:weather_app/components/constants/strings.dart';
+import 'package:weather_app/components/widgets/loading.dart';
 import 'package:weather_app/screens/home_screen.dart';
 import 'package:weather_app/services/weather_service.dart';
 
@@ -13,40 +12,57 @@ class SplashScreen extends StatefulWidget {
 }
 
 class SplashScreenState extends State<SplashScreen> {
-  late String _cityName;
-  WeatherService weatherService = WeatherService();
+  late Future<String> _cityName;
+
   @override
   void initState() {
     super.initState();
     _getCityName();
   }
 
+  _getCityName() async {
+    setState(() {
+      _cityName = WeatherService().getUserCity();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:
-          const BoxDecoration(gradient: GradientColor.backGroundGrdaient),
+      decoration: const BoxDecoration(
+        gradient: GradientColor.backGroundGrdaient,
+      ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
           child: Center(
-            child: Column(
-              spacing: 10,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 200,
-                  height: 200,
-                  child: LottieBuilder.asset(
-                    Strings.animationAssetSplash,
-                  ),
-                ),
-                const SpinKitThreeBounce(
-                  duration: Duration(seconds: 4),
-                  size: 19,
-                  color: Colors.white,
-                ),
-              ],
+            child: FutureBuilder(
+              future: _cityName,
+              builder: (context, snapshot) {
+                // accurate condition --->
+                if (snapshot.hasData) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (context) => HomeScreen(cityName: snapshot.data!),
+                      ),
+                    );
+                  });
+
+                  // error condition --->
+                } else if (snapshot.hasError) {
+                  return OutlinedButton(
+                    onPressed: () => _getCityName(),
+                    child: Text('retry'),
+                  );
+                  // waiting condition --->
+                } else {
+                  return Loading();
+                }
+                return SizedBox.shrink();
+              },
             ),
           ),
         ),
@@ -54,17 +70,5 @@ class SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  _getCityName() async {
-    String city = await WeatherService().getUserCity();
-    _cityName = city;
-    _navigateToHomeScreen();
-  }
-
-  _navigateToHomeScreen() {
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomeScreen(cityName: _cityName),
-        ));
-  }
+  // navigate to HomeScreen and pass _cityName --->
 }

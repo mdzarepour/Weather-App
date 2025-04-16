@@ -7,7 +7,7 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SpinKitThreeBounce(
+    return const SpinKitFadingCube(
       color: SolidColors.whiteColor,
       size: 20,
       duration: Duration(seconds: 2),
