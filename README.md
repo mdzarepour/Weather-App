@@ -8,9 +8,6 @@ just for practice api injection with openweather.com free api
 <p align="center">
 
 
-<img src="https://github.com/user-attachments/assets/a941db98-e6bc-4a65-96cd-c41f9be9fc1c" width="200" alt="" />
-
-
 <img src="https://github.com/user-attachments/assets/8b5682e6-c078-4a14-9f54-0e90f0376f54" width="200" alt="" />
 
 
@@ -39,7 +36,7 @@ flutter run
 
 used api :
 
-* website: `https://developer.themoviedb.org/docs/getting-started](https://openweathermap.org`
+* Url: `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
 
 <hr>
 
@@ -55,9 +52,9 @@ used package in Crypto :
 
 ## Contribution
 If you want to participate in this repo, you always welcomed. Parts to contribution:
-    Adding New Features
-    Testing
-    Performance Improvement
-    Clean Code advices
+* Adding New Features
+* Testing
+* Performance Improvement
+* Clean Code advices
 
 
