@@ -10,11 +10,11 @@ just for practice api injection with openweather.com free api
 
 <img src="https://github.com/user-attachments/assets/f1101d71-ce17-4bd2-815b-4b2daac24eb6" width="200" alt="" />
 
+<img src="https://github.com/user-attachments/assets/1bbea993-fe16-4540-8ace-59359c4a0013" width="200" alt="" />
 
 <img src="https://github.com/user-attachments/assets/c05fde8b-69d9-44b4-a2a0-da0383ffc154" width="200" alt="" />
 
 
-<img src="https://github.com/user-attachments/assets/1bbea993-fe16-4540-8ace-59359c4a0013" width="200" alt="" />
 
 </p>
 
