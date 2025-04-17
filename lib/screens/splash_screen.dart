@@ -58,7 +58,14 @@ class SplashScreenState extends State<SplashScreen> {
                   );
                   // waiting condition --->
                 } else {
-                  return Loading();
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 20,
+                    children: [
+                      Image.asset('assets/images/splash.png', height: 60),
+                      Loading(),
+                    ],
+                  );
                 }
                 return SizedBox.shrink();
               },

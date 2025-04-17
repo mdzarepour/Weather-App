@@ -1,14 +1,14 @@
 class Weather {
-  late String main;
-  late String name;
-  late String description;
-  late String country;
-  late double temp;
-  late double feelsLike;
-  late double minTemp;
-  late double maxTemp;
-  late double windSpeed;
-  late int humidity;
+  final String main;
+  final String name;
+  final String description;
+  final String country;
+  final double temp;
+  final double feelsLike;
+  final double minTemp;
+  final double maxTemp;
+  final double windSpeed;
+  final int humidity;
 
   Weather({
     required this.feelsLike,
